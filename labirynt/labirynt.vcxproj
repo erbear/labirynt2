@@ -101,6 +101,7 @@
   <ItemGroup>
     <ClInclude Include="labirynt.h" />
     <ClInclude Include="labiryntDlg.h" />
+    <ClInclude Include="obszar.h" />
     <ClInclude Include="Plansza.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -109,6 +110,7 @@
   <ItemGroup>
     <ClCompile Include="labirynt.cpp" />
     <ClCompile Include="labiryntDlg.cpp" />
+    <ClCompile Include="obszar.cpp" />
     <ClCompile Include="Plansza.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
