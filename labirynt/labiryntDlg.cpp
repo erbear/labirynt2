@@ -64,6 +64,10 @@ BEGIN_MESSAGE_MAP(ClabiryntDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDOK, &ClabiryntDlg::OnBnClickedOk)
+	ON_BN_CLICKED(IDC_BUTTON1, &ClabiryntDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &ClabiryntDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &ClabiryntDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, &ClabiryntDlg::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -156,12 +160,38 @@ HCURSOR ClabiryntDlg::OnQueryDragIcon()
 void ClabiryntDlg::OnBnClickedOk()
 {
 	CDC *dc = GetDC();
-	Plansza *wsk;
-	wsk = new Plansza;
-	LabiryntGen *generator;
-	generator = new LabiryntGen(wsk);
-	generator->Generuj(wsk);
-	wsk->Buduj(dc);
-	delete generator;
-	delete wsk;
+	plansza = new Plansza;
+	generator = new LabiryntGen(plansza);
+	generator->Generuj(plansza);
+	plansza->Buduj(dc);
+	sterowanie = new UkladSterowania(plansza, dc);
+	bohater = new Obiekt(20,20,380,380);
+	sterowanie->dodajBohatera(bohater);
+	sterowanie->naStart();
+
+
+}
+
+
+void ClabiryntDlg::OnBnClickedButton1()
+{
+	sterowanie->wPrawo();
+}
+
+
+void ClabiryntDlg::OnBnClickedButton2()
+{
+	sterowanie->wLewo();
+}
+
+
+void ClabiryntDlg::OnBnClickedButton3()
+{
+	sterowanie->wGore();
+}
+
+
+void ClabiryntDlg::OnBnClickedButton4()
+{
+	sterowanie->wDol();
 }

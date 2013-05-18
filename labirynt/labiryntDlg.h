@@ -5,6 +5,8 @@
 #pragma once
 #include "Plansza.h"
 #include "LabiryntGen.h"
+#include "Obiekt.h"
+#include "UkladSterowania.h"
 
 // ClabiryntDlg dialog
 class ClabiryntDlg : public CDialogEx
@@ -29,7 +31,15 @@ protected:
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
+	Plansza *plansza;
+	LabiryntGen *generator;
+	UkladSterowania *sterowanie;
+	Obiekt *bohater;
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButton2();
+	afx_msg void OnBnClickedButton3();
+	afx_msg void OnBnClickedButton4();
 };

@@ -48,6 +48,12 @@
     <ClInclude Include="LabiryntGen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Obiekt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UkladSterowania.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="labirynt.cpp">
@@ -66,6 +72,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LabiryntGen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Obiekt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UkladSterowania.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

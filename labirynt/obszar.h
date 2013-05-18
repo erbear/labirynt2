@@ -1,9 +1,11 @@
 #pragma once
+#include "Obiekt.h"
 class Obszar
 {
 	int *sciana;
 	int *wspolrzedna;
-	CRgn rgn;
+	int kolor[3];
+	CRgn *rgn;
 public:
 	Obszar(void);
 	~Obszar(void);
@@ -17,5 +19,7 @@ public:
 	int GetWspolrzedna(int);
 
 	void Maluj(CDC*);
+	void Postaw(CDC*,Obiekt*);
+	void Wyczysc(CDC*);
 };
 

@@ -6,6 +6,9 @@ Obszar::Obszar(void)
 {
 	sciana = new int[2];
 	wspolrzedna = new int [8];
+	kolor[0] = 255;
+	kolor[1] = 255;
+	kolor[2] = 153;
 }
 
 
@@ -58,11 +61,12 @@ int Obszar::GetWspolrzedna(int ktora)
 void Obszar::Maluj(CDC *dc)
 {
 	POINT p1,p2;
-	rgn.CreateRectRgn(wspolrzedna[0],wspolrzedna[1],wspolrzedna[4],wspolrzedna[5]);
+	CRgn Rgn;
+	Rgn.CreateRectRgn(wspolrzedna[0],wspolrzedna[1],wspolrzedna[4],wspolrzedna[5]);
 	
-	CBrush brush(RGB(255, 255, 153));
+	CBrush brush(RGB(kolor[0], kolor[1], kolor[2]));
 
-	dc->FillRgn(&rgn, &brush);
+	dc->FillRgn(&Rgn, &brush);
 	if (sciana[0] == 1)
 		{
 			p1.x=wspolrzedna[0];
@@ -81,4 +85,19 @@ void Obszar::Maluj(CDC *dc)
 			POINT tab[2] = {p1,p2};
 			dc->Polyline(tab,2);
 		}
+}
+void Obszar::Wyczysc(CDC *dc)
+{
+	rgn = new CRgn;
+	rgn->CreateRectRgn(wspolrzedna[0]+1,wspolrzedna[1]+1,wspolrzedna[4]-1,wspolrzedna[5]-1);
+	
+	CBrush brush(RGB(kolor[0], kolor[1], kolor[2]));
+
+	dc->FillRgn(rgn, &brush);
+	delete rgn;
+}
+void Obszar::Postaw(CDC *dc, Obiekt *obiekt)
+{
+	obiekt->setWierzcholki(wspolrzedna[0],wspolrzedna[1],wspolrzedna[4],wspolrzedna[5]);
+	obiekt->Rysuj(dc);
 }
