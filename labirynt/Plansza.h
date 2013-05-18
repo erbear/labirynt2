@@ -12,6 +12,8 @@ public:
 	Plansza();//konstruktor bezargumentowy
 	~Plansza();//destruktor
 	void Buduj(CDC*);
+	void  SetDroga(int,int);
+	int GetPoziom();
 private:
 	void dodajKrawedzie();
 	void obliczWspolrzedne();

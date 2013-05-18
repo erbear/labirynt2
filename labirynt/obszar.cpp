@@ -22,6 +22,10 @@ int Obszar::GetSciana(int ktora)
 {
 	return sciana[ktora];
 }
+void Obszar::DeleteSciana(int ktora)
+{
+	sciana[ktora]=0;
+}
 void Obszar::SetWspolrzedne(int x, int y, int bok)
 {
 	//lewy gorny wierzcholek

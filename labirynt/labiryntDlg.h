@@ -4,6 +4,7 @@
 
 #pragma once
 #include "Plansza.h"
+#include "LabiryntGen.h"
 
 // ClabiryntDlg dialog
 class ClabiryntDlg : public CDialogEx

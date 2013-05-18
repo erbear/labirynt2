@@ -10,6 +10,8 @@ public:
 
 	void  SetSciana(int);
 	int GetSciana(int);
+	
+	void DeleteSciana(int);
 
 	void SetWspolrzedne(int, int, int);
 	int GetWspolrzedna(int);

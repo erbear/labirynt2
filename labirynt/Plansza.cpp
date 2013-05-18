@@ -5,7 +5,7 @@
 Plansza::Plansza()
 {
 	//ustalam domyslny poziom
-	poziom = 50;
+	poziom = 40;
 	//ustalam domyslna wielkosc w pikselach
 	wielkosc = 400;
 	//domyslne wartosc wspolrzenych planszy
@@ -68,4 +68,27 @@ void Plansza::Buduj(CDC* dc)
 	{
 		obszar[i].Maluj(dc);
 	}
+}
+
+void  Plansza::SetDroga(int obszar1,int obszar2)
+{
+	if (obszar1<obszar2)
+	{
+		if (obszar1+1==obszar2)
+			obszar[obszar2-1].DeleteSciana(0);
+		else if (obszar1+poziom==obszar2)
+			obszar[obszar2-1].DeleteSciana(1);
+	} else 
+	if (obszar1>obszar2)
+	{
+		if (obszar1==obszar2+1)
+			obszar[obszar1-1].DeleteSciana(0);
+		else if (obszar1==obszar2+poziom)
+			obszar[obszar1-1].DeleteSciana(1);
+	}
+
+}
+int Plansza::GetPoziom()
+{
+	return poziom;
 }

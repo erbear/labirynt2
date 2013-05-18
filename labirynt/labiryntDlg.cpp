@@ -156,6 +156,12 @@ HCURSOR ClabiryntDlg::OnQueryDragIcon()
 void ClabiryntDlg::OnBnClickedOk()
 {
 	CDC *dc = GetDC();
-	Plansza plansza;
-	plansza.Buduj(dc);
+	Plansza *wsk;
+	wsk = new Plansza;
+	LabiryntGen *generator;
+	generator = new LabiryntGen(wsk);
+	generator->Generuj(wsk);
+	wsk->Buduj(dc);
+	delete generator;
+	delete wsk;
 }

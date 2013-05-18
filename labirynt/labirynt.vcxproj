@@ -101,6 +101,7 @@
   <ItemGroup>
     <ClInclude Include="labirynt.h" />
     <ClInclude Include="labiryntDlg.h" />
+    <ClInclude Include="LabiryntGen.h" />
     <ClInclude Include="obszar.h" />
     <ClInclude Include="Plansza.h" />
     <ClInclude Include="Resource.h" />
@@ -110,6 +111,7 @@
   <ItemGroup>
     <ClCompile Include="labirynt.cpp" />
     <ClCompile Include="labiryntDlg.cpp" />
+    <ClCompile Include="LabiryntGen.cpp" />
     <ClCompile Include="obszar.cpp" />
     <ClCompile Include="Plansza.cpp" />
     <ClCompile Include="stdafx.cpp">

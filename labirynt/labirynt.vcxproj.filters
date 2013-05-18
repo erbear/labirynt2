@@ -45,6 +45,9 @@
     <ClInclude Include="obszar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LabiryntGen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="labirynt.cpp">
@@ -60,6 +63,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="obszar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LabiryntGen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
