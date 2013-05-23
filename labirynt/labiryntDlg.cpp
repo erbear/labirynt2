@@ -156,6 +156,38 @@ HCURSOR ClabiryntDlg::OnQueryDragIcon()
 void ClabiryntDlg::OnBnClickedOk()
 {
 	CDC *dc = GetDC();
-	Plansza plansza;
-	plansza.Buduj(dc);
+	plansza = new Plansza;
+	generator = new LabiryntGen(plansza);
+	generator->Generuj(plansza);
+	plansza->Buduj(dc);
+	sterowanie = new UkladSterowania(plansza, dc);
+	bohater = new Obiekt(20,20,380,380);
+	sterowanie->dodajBohatera(bohater);
+	sterowanie->naStart();
+
+}
+
+BOOL ClabiryntDlg::PreTranslateMessage(MSG* pMSG)
+{   
+	if(pMSG->message == WM_KEYDOWN)
+	{
+        if ( pMSG->wParam == VK_RIGHT ) 
+        {
+			sterowanie->wPrawo();
+		}
+		if ( pMSG->wParam == VK_LEFT )
+		{
+			sterowanie->wLewo(); 
+		}
+		if ( pMSG->wParam == VK_UP )
+		{
+			sterowanie->wGore(); 
+		}
+		if ( pMSG->wParam == VK_DOWN )
+		{
+			sterowanie->wDol(); 
+		}
+		
+	}
+		return CDialog::PreTranslateMessage(pMSG);
 }
