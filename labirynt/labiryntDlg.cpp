@@ -64,6 +64,10 @@ BEGIN_MESSAGE_MAP(ClabiryntDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDOK, &ClabiryntDlg::OnBnClickedOk)
+	ON_BN_CLICKED(IDC_BUTTON1, &ClabiryntDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &ClabiryntDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &ClabiryntDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, &ClabiryntDlg::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -165,6 +169,34 @@ void ClabiryntDlg::OnBnClickedOk()
 	sterowanie->dodajBohatera(bohater);
 	sterowanie->naStart();
 
+<<<<<<< HEAD
+=======
+
+}
+
+
+void ClabiryntDlg::OnBnClickedButton1()
+{
+	sterowanie->wPrawo();
+}
+
+
+void ClabiryntDlg::OnBnClickedButton2()
+{
+	sterowanie->wLewo();
+}
+
+
+void ClabiryntDlg::OnBnClickedButton3()
+{
+	sterowanie->wGore();
+}
+
+
+void ClabiryntDlg::OnBnClickedButton4()
+{
+	sterowanie->wDol();
+>>>>>>> de391c487e26461975fa516e93e0e643d38c2c9e
 }
 
 BOOL ClabiryntDlg::PreTranslateMessage(MSG* pMSG)
