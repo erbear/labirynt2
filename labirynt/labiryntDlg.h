@@ -38,14 +38,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
-<<<<<<< HEAD
 	BOOL ClabiryntDlg::PreTranslateMessage(MSG* pMSG);
-=======
-	afx_msg void OnBnClickedButton1();
-	afx_msg void OnBnClickedButton2();
-	afx_msg void OnBnClickedButton3();
-	afx_msg void OnBnClickedButton4();
->>>>>>> de391c487e26461975fa516e93e0e643d38c2c9e
 };
 
 

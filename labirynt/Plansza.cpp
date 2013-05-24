@@ -5,9 +5,9 @@
 Plansza::Plansza()
 {
 	//ustalam domyslny poziom
-	poziom = 40;
+	poziom = 60;
 	//ustalam domyslna wielkosc w pikselach
-	wielkosc = 400;
+	wielkosc = 600;
 	//domyslne wartosc wspolrzenych planszy
 	x1=y1=0;
 	x2=y2=wielkosc+2;
