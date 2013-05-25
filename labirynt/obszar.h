@@ -9,17 +9,17 @@ public:
 	Obszar();
 	~Obszar();
 
-	void ustawSciane(int);
-	int czySciana(int);
+	void ustawSciane(int);//ustawia w zmiennej sciana 1, w argumencie znajduje sie sciana lewa(0) lub gorna(1)
+	void usunSciane(int);//usuwa sciane czyli ustawia w zmiennej sciana 0, w argumencie znajduje sie sciana lewa(0) lub gorna(1)
+	int czySciana(int);//sprawdza czy jest ustawiona sciana
 	
-	void usunSciane(int);
 
-	void ustawWspolrzedne(int, int, int);
-	int pobierzWspolrzedna(int);
+	void ustawWspolrzedne(int, int, int);//ustawia wspolrzedne obszaru, pierwsze dwa argumenty to wspolrzedne lewego gornego punktu. trzeci argument to dlugosc boku
+	int pobierzWspolrzedna(int);//pobiera dana wspolrzedna
 
-	void Maluj(CDC*);
-	void Postaw(CDC*,Obiekt*);
-	void Wyczysc(CDC*);
+	void Maluj(CDC*);//umieszcza obszar w odpowiednim miejscu na oknie
+	void Postaw(CDC*,Obiekt*);//stawia obiekt na obszarze
+	void Wyczysc(CDC*);//czysci obszar
 
-	void ustawKolor(int,int,int);
+	void ustawKolor(int,int,int);//ustawia kolor obszaru
 };

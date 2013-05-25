@@ -157,7 +157,7 @@ void ClabiryntDlg::OnBnClickedOk()
 {
 	CDC *dc = GetDC();
 	sterowanie = new UkladSterowania(dc);
-	bohater = new Krysztal(20,20,380,380);
+	bohater = new Bohater();
 	
 	sterowanie->stworzPlansze();
 	sterowanie->dodajBohatera(bohater);

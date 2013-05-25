@@ -14,8 +14,10 @@ public:
 	Plansza();//konstruktor bezargumentowy
 	Plansza(int);//konstruktor z liczba poziomow w argumentach
 	~Plansza();//destruktor
-	void Buduj(CDC*);
-	void ustalPrzejscie(int,int);
+	void Buduj(CDC*);//tworzy plansze
+	void ustalPrzejscie(int,int);//kasuje sciane pomiedzy dwoma obszarami
+
+	//funkcje pobierajace i ustawiajace zmienne
 	int pobierzPoziom();
 	int pobierzWielkosc();
 	void ustawStart(int);
