@@ -91,7 +91,7 @@ void Obszar::Wyczysc(CDC *dc)
 	rgn = new CRgn;
 	rgn->CreateRectRgn(wspolrzedna[0]+1,wspolrzedna[1]+1,wspolrzedna[4],wspolrzedna[5]);
 	
-	CBrush brush(RGB(kolor[0], kolor[1], kolor[2]-=20));
+	CBrush brush(RGB(kolor[0], kolor[1], kolor[2]>20 ? kolor[2]-=20:kolor[2]));
 
 	dc->FillRgn(rgn, &brush);
 	delete rgn;
