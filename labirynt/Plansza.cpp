@@ -5,9 +5,9 @@
 Plansza::Plansza()
 {
 	//ustalam domyslny poziom
-	poziom = 4;
+	poziom = 10;
 	//ustalam domyslna wielkosc w pikselach
-	wielkosc = 400;
+	wielkosc = 600;
 	//domyslne wartosc wspolrzenych planszy
 	x1=y1=0;
 	x2=y2=wielkosc+2;
@@ -20,7 +20,22 @@ Plansza::Plansza()
 	dodajKrawedzie();
 	obliczWspolrzedne();
 }
-
+Plansza::Plansza(int i)
+{
+	//ustalam domyslny poziom
+	poziom = i;
+	//ustalam domyslna wielkosc w pikselach
+	wielkosc = 400;
+	//domyslne wartosc wspolrzenych planszy
+	x1=y1=0;
+	x2=y2=wielkosc+2;
+	//obliczam ilosc kwadratow
+	kwadraty = poziom * poziom;
+	//tworzy obszary
+	obszar = new Obszar[kwadraty];
+	dodajKrawedzie();
+	obliczWspolrzedne();
+}
 //destruktor
 Plansza::~Plansza()
 {
@@ -36,9 +51,9 @@ void Plansza::dodajKrawedzie()
 		a=i/poziom;
 		b=i%poziom;
 		if (b!=0)
-		obszar[i].SetSciana(0);
+		obszar[i].ustawSciane(0);
 		if (a!=0)
-		obszar[i].SetSciana(1);
+		obszar[i].ustawSciane(1);
 
 	}
 }
@@ -55,7 +70,7 @@ void Plansza::obliczWspolrzedne()
 		y=y*bok+1;//reszta pomno¿ona przez wielkosc boku. +1 ze wzgledu na sciane zbudowana na poczatku
 		
 		//lewy gorny wierzcholek
-		obszar[i].SetWspolrzedne(x, y, bok);
+		obszar[i].ustawWspolrzedne(x, y, bok);
 		
 	}
 }
@@ -70,25 +85,25 @@ void Plansza::Buduj(CDC* dc)
 	}
 }
 
-void  Plansza::SetDroga(int obszar1,int obszar2)
+void  Plansza::ustalPrzejscie(int obszar1,int obszar2)
 {
 	if (obszar1<obszar2)
 	{
 		if (obszar1+1==obszar2)
-			obszar[obszar2-1].DeleteSciana(0);
+			obszar[obszar2-1].usunSciane(0);
 		else if (obszar1+poziom==obszar2)
-			obszar[obszar2-1].DeleteSciana(1);
+			obszar[obszar2-1].usunSciane(1);
 	} else 
 	if (obszar1>obszar2)
 	{
 		if (obszar1==obszar2+1)
-			obszar[obszar1-1].DeleteSciana(0);
+			obszar[obszar1-1].usunSciane(0);
 		else if (obszar1==obszar2+poziom)
-			obszar[obszar1-1].DeleteSciana(1);
+			obszar[obszar1-1].usunSciane(1);
 	}
 
 }
-int Plansza::GetPoziom()
+int Plansza::pobierzPoziom()
 {
 	return poziom;
 }

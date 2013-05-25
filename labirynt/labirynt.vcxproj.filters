@@ -54,6 +54,12 @@
     <ClInclude Include="UkladSterowania.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Bohater.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Krysztal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="labirynt.cpp">
@@ -78,6 +84,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UkladSterowania.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bohater.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Krysztal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -10,10 +10,11 @@ class Plansza
 	Obszar *obszar;
 public:
 	Plansza();//konstruktor bezargumentowy
+	Plansza(int);//konstruktor z liczba poziomow w argumentach
 	~Plansza();//destruktor
 	void Buduj(CDC*);
-	void  SetDroga(int,int);
-	int GetPoziom();
+	void ustalPrzejscie(int,int);
+	int pobierzPoziom();
 
 private:
 	void dodajKrawedzie();
