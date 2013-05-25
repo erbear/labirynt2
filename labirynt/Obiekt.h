@@ -6,8 +6,7 @@ protected:
 	int IloscWierzcholkow; // ilosc wierzcholkow tej figury
 public:
 	Obiekt();
-	Obiekt(int,int,int,int); //w argumentach konstruktora sa wspolrzedne 2 wierzcholkow
 	virtual ~Obiekt();
 	virtual void Rysuj(CDC*);//rysuje obiekt
-	virtual void ustalWierzcholki(int,int,int,int);//przypisuje wierzcholki obiektu 
+	virtual void ustalWierzcholki(int,int,int,int)=0;//przypisuje wierzcholki obiektu 
 };

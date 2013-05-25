@@ -5,10 +5,7 @@ Bohater::Bohater():Obiekt()
 {
 	IloscWierzcholkow = 3;
 }
-Bohater::Bohater(int x1,int y1,int x2,int y2):Obiekt(x1,y1,x2,y2)
-{
-	IloscWierzcholkow = 3;
-}
+
 
 
 Bohater::~Bohater(void)
