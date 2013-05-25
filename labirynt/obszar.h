@@ -10,16 +10,15 @@ public:
 	Obszar(void);
 	~Obszar(void);
 
-	void  SetSciana(int);
-	int GetSciana(int);
+	void ustawSciane(int);
+	int czySciana(int);
 	
-	void DeleteSciana(int);
+	void usunSciane(int);
 
-	void SetWspolrzedne(int, int, int);
-	int GetWspolrzedna(int);
+	void ustawWspolrzedne(int, int, int);
+	int pobierzWspolrzedna(int);
 
 	void Maluj(CDC*);
 	void Postaw(CDC*,Obiekt*);
 	void Wyczysc(CDC*);
 };
-

@@ -99,6 +99,8 @@
     <None Include="res\labirynt.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bohater.h" />
+    <ClInclude Include="Krysztal.h" />
     <ClInclude Include="labirynt.h" />
     <ClInclude Include="labiryntDlg.h" />
     <ClInclude Include="LabiryntGen.h" />
@@ -111,6 +113,8 @@
     <ClInclude Include="UkladSterowania.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bohater.cpp" />
+    <ClCompile Include="Krysztal.cpp" />
     <ClCompile Include="labirynt.cpp" />
     <ClCompile Include="labiryntDlg.cpp" />
     <ClCompile Include="LabiryntGen.cpp" />

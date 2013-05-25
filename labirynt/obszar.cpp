@@ -17,19 +17,19 @@ Obszar::~Obszar(void)
 	delete []sciana;
 	delete []wspolrzedna;
 }
-void Obszar::SetSciana(int ktora)
+void Obszar::ustawSciane(int ktora)
 {
 	sciana[ktora]=1;
 }
-int Obszar::GetSciana(int ktora)
+int Obszar::czySciana(int ktora)
 {
 	return sciana[ktora];
 }
-void Obszar::DeleteSciana(int ktora)
+void Obszar::usunSciane(int ktora)
 {
 	sciana[ktora]=0;
 }
-void Obszar::SetWspolrzedne(int x, int y, int bok)
+void Obszar::ustawWspolrzedne(int x, int y, int bok)
 {
 	//lewy gorny wierzcholek
 	wspolrzedna[0] = x;
@@ -54,7 +54,7 @@ void Obszar::SetWspolrzedne(int x, int y, int bok)
 	wspolrzedna[7] = y;
 }
 
-int Obszar::GetWspolrzedna(int ktora)
+int Obszar::pobierzWspolrzedna(int ktora)
 {
 	return wspolrzedna[ktora];
 }
@@ -98,6 +98,6 @@ void Obszar::Wyczysc(CDC *dc)
 }
 void Obszar::Postaw(CDC *dc, Obiekt *obiekt)
 {
-	obiekt->setWierzcholki(wspolrzedna[0],wspolrzedna[1],wspolrzedna[4],wspolrzedna[5]);
+	obiekt->ustalWierzcholki(wspolrzedna[0],wspolrzedna[1],wspolrzedna[4],wspolrzedna[5]);
 	obiekt->Rysuj(dc);
 }

@@ -7,7 +7,7 @@ LabiryntGen::LabiryntGen(void)
 }
 LabiryntGen::LabiryntGen(Plansza *plansza)
 {
-	v = plansza->GetPoziom();
+	v = plansza->pobierzPoziom();
 	n=v*v;
 	odwiedzony = new int[n+1];
 	for (int i = 0; i<n+1;i++)
@@ -90,7 +90,7 @@ void LabiryntGen::Generuj(Plansza *plansza)
 		if (dopolaczenia.size()!=0)
 		{
 		x = rand() % dopolaczenia.size();
-		plansza->SetDroga(dopolaczenia[x], z);
+		plansza->ustalPrzejscie(dopolaczenia[x], z);
 		}
 		
 

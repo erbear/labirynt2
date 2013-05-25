@@ -161,7 +161,7 @@ void ClabiryntDlg::OnBnClickedOk()
 	generator->Generuj(plansza);
 	plansza->Buduj(dc);
 	sterowanie = new UkladSterowania(plansza, dc);
-	bohater = new Obiekt(20,20,380,380);
+	bohater = new Krysztal(20,20,380,380);
 	sterowanie->dodajBohatera(bohater);
 	sterowanie->naStart();
 

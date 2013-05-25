@@ -7,6 +7,8 @@
 #include "LabiryntGen.h"
 #include "Obiekt.h"
 #include "UkladSterowania.h"
+#include "Bohater.h"
+#include "Krysztal.h"
 
 // ClabiryntDlg dialog
 class ClabiryntDlg : public CDialogEx
@@ -35,6 +37,7 @@ protected:
 	LabiryntGen *generator;
 	UkladSterowania *sterowanie;
 	Obiekt *bohater;
+	Bohater *boh;
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
