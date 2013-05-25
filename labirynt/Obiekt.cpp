@@ -2,6 +2,9 @@
 #include "Obiekt.h"
 
 
+Obiekt::Obiekt()
+{
+}
 Obiekt::Obiekt(int x1,int y1,int x2,int y2)
 {
 	ustalWierzcholki(x1,y1,x2,y2);

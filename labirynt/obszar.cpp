@@ -2,17 +2,18 @@
 #include "obszar.h"
 
 
-Obszar::Obszar(void)
+Obszar::Obszar()
 {
-	sciana = new int[2];
-	wspolrzedna = new int [8];
+	sciana = new int[2]; // tworzenie tablicy sciana
+	wspolrzedna = new int [8]; //tworzenie tablicy wspolrzednych
+	//ustalanie domyslnego koloru
 	kolor[0] = 255;
 	kolor[1] = 255;
 	kolor[2] = 153;
 }
 
 
-Obszar::~Obszar(void)
+Obszar::~Obszar()
 {
 	delete []sciana;
 	delete []wspolrzedna;
@@ -88,13 +89,13 @@ void Obszar::Maluj(CDC *dc)
 }
 void Obszar::Wyczysc(CDC *dc)
 {
-	rgn = new CRgn;
-	rgn->CreateRectRgn(wspolrzedna[0]+1,wspolrzedna[1]+1,wspolrzedna[4],wspolrzedna[5]);
+	int RoznicaKoloru = 20; //szybkosc sciemniania koloru przechodzonej drogi
+	CRgn rgn;
+	rgn.CreateRectRgn(wspolrzedna[0]+1,wspolrzedna[1]+1,wspolrzedna[4],wspolrzedna[5]);
 	
-	CBrush brush(RGB(kolor[0], kolor[1], kolor[2]>20 ? kolor[2]-=20:kolor[2]));
+	CBrush brush(RGB((kolor[1]<=RoznicaKoloru && kolor[0]>RoznicaKoloru) ? kolor[0]-=RoznicaKoloru  : kolor[0], (kolor[2]<=RoznicaKoloru && kolor[1]>RoznicaKoloru)? kolor[1]-=RoznicaKoloru : kolor[1], kolor[2]>RoznicaKoloru ? kolor[2]-=RoznicaKoloru:kolor[2]));
 
-	dc->FillRgn(rgn, &brush);
-	delete rgn;
+	dc->FillRgn(&rgn, &brush);
 }
 void Obszar::Postaw(CDC *dc, Obiekt *obiekt)
 {

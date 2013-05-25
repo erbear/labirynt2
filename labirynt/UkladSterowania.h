@@ -13,7 +13,7 @@ public:
 	UkladSterowania(Plansza*,CDC*);
 	~UkladSterowania();
 	void dodajBohatera(Obiekt*);
-	void naStart();//ustawia bohatera na pierwszym polu(START)
+	void naStart();//ustawia bohatera na polu ustalonym zmienna start
 	void ustawStart(int);//odpowiada za pole startu 1 - poziom*poziom
 	void ustawMete(int);//odpowiada za pole mety 1 - poziom *poziom
 	
