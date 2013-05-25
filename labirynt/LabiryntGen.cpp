@@ -4,9 +4,13 @@
 
 LabiryntGen::LabiryntGen(void)
 {
+	odwiedzony = 0;
+	graniczacy = 0;
+	plansza = 0;
 }
-LabiryntGen::LabiryntGen(Plansza *plansza)
+LabiryntGen::LabiryntGen(Plansza *wsk)
 {
+	plansza = wsk;
 	v = plansza->pobierzPoziom();
 	n=v*v;
 	odwiedzony = new int[n+1];
@@ -27,10 +31,10 @@ LabiryntGen::~LabiryntGen(void)
 	graniczacy = 0;
 }
 
-void LabiryntGen::Generuj(Plansza *plansza)
+void LabiryntGen::Generuj()
 {
 	int z,x,y;
-	srand(2);
+	//srand(2);
 	for (int i =0;i<n;i++)
 	{
 		if (i ==0)
@@ -96,4 +100,22 @@ void LabiryntGen::Generuj(Plansza *plansza)
 
 
 	}
+}
+void LabiryntGen::nowaPlansza(Plansza* wsk)
+{
+	delete[] odwiedzony;
+	odwiedzony = 0;
+	delete[] graniczacy;
+	graniczacy = 0;
+
+
+	plansza = wsk;
+	v = plansza->pobierzPoziom();
+	n=v*v;
+	odwiedzony = new int[n+1];
+	for (int i = 0; i<n+1;i++)
+	odwiedzony[i] = 0;
+	graniczacy = new int[n+1];
+	for (int i = 0; i<n+1;i++)
+	graniczacy[i] = 0;
 }

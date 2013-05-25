@@ -5,7 +5,7 @@
 Plansza::Plansza()
 {
 	//ustalam domyslny poziom
-	poziom = 40;
+	poziom = 10;
 	//ustalam domyslna wielkosc w pikselach
 	wielkosc = 600;
 	//domyslne wartosc wspolrzenych planszy
@@ -13,28 +13,34 @@ Plansza::Plansza()
 	x2=y2=wielkosc+2;
 	//obliczam ilosc kwadratow
 	kwadraty = poziom * poziom;
-	//
+	//tworze tablice obszarow
 	obszar = new Obszar[kwadraty];
-	for (int i = 0; i < kwadraty; i++)
-	
+	//dodaje krawedzie do kazdego obszaru
 	dodajKrawedzie();
 	obliczWspolrzedne();
+	//ustawiam start
+	start = 0;
+	//ustawiam mete
+	meta = poziom * poziom -1;
+
 }
 Plansza::Plansza(int i)
 {
 	//ustalam domyslny poziom
 	poziom = i;
 	//ustalam domyslna wielkosc w pikselach
-	wielkosc = 400;
+	wielkosc = 600;
+	//obliczam ilosc kwadratow
+	kwadraty = poziom * poziom;
 	//domyslne wartosc wspolrzenych planszy
 	x1=y1=0;
 	x2=y2=wielkosc+2;
-	//obliczam ilosc kwadratow
-	kwadraty = poziom * poziom;
 	//tworzy obszary
 	obszar = new Obszar[kwadraty];
 	dodajKrawedzie();
 	obliczWspolrzedne();
+	start = 0;
+	meta = poziom * poziom -1;
 }
 //destruktor
 Plansza::~Plansza()
@@ -78,7 +84,7 @@ void Plansza::Buduj(CDC* dc)
 {
 	POINT p1,p2;
 	dc->Rectangle(x1,y1,x2,y2);//buduje kwadrat otaczajacy obszar labiryntu
-	
+	obszar[meta].ustawKolor(255,20,20);//ustawia kolor mety
 	for(int i=0;i<kwadraty;i++)
 	{
 		obszar[i].Maluj(dc);
@@ -106,4 +112,24 @@ void  Plansza::ustalPrzejscie(int obszar1,int obszar2)
 int Plansza::pobierzPoziom()
 {
 	return poziom;
+}
+void Plansza::ustawStart(int i)
+{
+	start = i;
+}
+void Plansza::ustawMete(int i)
+{
+	meta = i;
+}
+int Plansza::pobierzStart()
+{
+	return start;
+}
+int Plansza::pobierzMete()
+{
+	return meta;
+}
+int Plansza::pobierzWielkosc()
+{
+	return wielkosc;
 }

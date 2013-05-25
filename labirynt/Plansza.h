@@ -7,6 +7,8 @@ class Plansza
 	int wielkosc;//wielkosc w pikselach
 	int poziom;// ilosc kwadratow w wierszu
 	int kwadraty; // ilosc wszystkich kwadratow
+	int start;
+	int meta;
 	Obszar *obszar;
 public:
 	Plansza();//konstruktor bezargumentowy
@@ -15,10 +17,17 @@ public:
 	void Buduj(CDC*);
 	void ustalPrzejscie(int,int);
 	int pobierzPoziom();
+	int pobierzWielkosc();
+	void ustawStart(int);
+	void ustawMete(int);
+	int pobierzStart();
+	int pobierzMete();
 
 private:
 	void dodajKrawedzie();
 	void obliczWspolrzedne();
+
+
 
 	friend class UkladSterowania;
 };

@@ -156,14 +156,12 @@ HCURSOR ClabiryntDlg::OnQueryDragIcon()
 void ClabiryntDlg::OnBnClickedOk()
 {
 	CDC *dc = GetDC();
-	plansza = new Plansza;
-	generator = new LabiryntGen(plansza);
-	generator->Generuj(plansza);
-	plansza->Buduj(dc);
-	sterowanie = new UkladSterowania(plansza, dc);
+	sterowanie = new UkladSterowania(dc);
 	bohater = new Krysztal(20,20,380,380);
+	
+	sterowanie->stworzPlansze();
 	sterowanie->dodajBohatera(bohater);
-	sterowanie->naStart();
+	sterowanie->Start();
 
 }
 

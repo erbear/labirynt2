@@ -1,17 +1,11 @@
 #include "StdAfx.h"
 #include "UkladSterowania.h"
 
-UkladSterowania::UkladSterowania()
+UkladSterowania::UkladSterowania(CDC *DC)
 {
-
-}
-UkladSterowania::UkladSterowania(Plansza *wsk,CDC *DC)
-{
-	mapa = wsk;
+	poziom = 10;
+	mapa = new Plansza(poziom);
 	dc=DC;
-	start = 0;
-	int n = mapa->pobierzPoziom();
-	meta = n*n;
 }
 
 
@@ -23,8 +17,9 @@ void UkladSterowania::dodajBohatera(Obiekt *wsk)
 {
 	obiekt = wsk;
 }
-void UkladSterowania::naStart()
+void UkladSterowania::Start()
 {
+	int start=mapa->pobierzStart();
 	int x1,y1,x2,y2;
 	// wspolrzedne lewego gornego punktu obszaru
 	x1 = mapa->obszar[start].pobierzWspolrzedna(0);
@@ -52,6 +47,7 @@ void UkladSterowania::wPrawo()
 			mapa->obszar[pozycja+1].Postaw(dc,obiekt);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
 			pozycja += 1; //ustawia nowa pozycje
+			czyMeta();
 		}
 	}
 }
@@ -66,6 +62,7 @@ void UkladSterowania::wLewo()
 			mapa->obszar[pozycja-1].Postaw(dc,obiekt);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
 			pozycja -= 1;//ustawia nowa pozycje
+			czyMeta();
 		}
 	}
 }
@@ -80,6 +77,7 @@ void UkladSterowania::wGore()
 			mapa->obszar[pozycja-poziom].Postaw(dc,obiekt);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
 			pozycja -= poziom;//ustawia nowa pozycje
+			czyMeta();
 		}
 	}
 }
@@ -94,14 +92,34 @@ void UkladSterowania::wDol()
 			mapa->obszar[pozycja+poziom].Postaw(dc,obiekt);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
 			pozycja += poziom;//ustawia nowa pozycje
+			czyMeta();
 		}
 	}
 }
-void UkladSterowania::ustawStart(int i)
+void UkladSterowania::stworzPlansze()
 {
-	start = i;
+	generator.nowaPlansza(mapa);
+	generator.Generuj();
+	mapa->Buduj(dc);
 }
-void UkladSterowania::ustawMete(int i)
+void UkladSterowania::czyMeta()
 {
-	meta = i;
+	if (pozycja==mapa->pobierzMete())
+	{
+		nastepnyPoziom();
+	}
+}
+void UkladSterowania::nastepnyPoziom()
+{
+	poziom+=1;
+	int wielkosc = mapa->pobierzWielkosc();
+	while (wielkosc % poziom !=0)
+	{
+		poziom++;
+	}
+	delete mapa;
+	mapa = new Plansza(poziom);
+	stworzPlansze();
+	Start();
+	
 }

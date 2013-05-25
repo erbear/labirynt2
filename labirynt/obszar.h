@@ -20,4 +20,6 @@ public:
 	void Maluj(CDC*);
 	void Postaw(CDC*,Obiekt*);
 	void Wyczysc(CDC*);
+
+	void ustawKolor(int,int,int);
 };

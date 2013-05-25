@@ -61,13 +61,18 @@ int Obszar::pobierzWspolrzedna(int ktora)
 }
 void Obszar::Maluj(CDC *dc)
 {
-	POINT p1,p2;
-	CRgn Rgn;
+	POINT p1,p2;//punkty lewego gornego i prawego dolnego punktu obszaru
+	//utworzenie danego regionu
+	CRgn Rgn; 
 	Rgn.CreateRectRgn(wspolrzedna[0],wspolrzedna[1],wspolrzedna[4],wspolrzedna[5]);
 	
+	//ustalenie koloru
 	CBrush brush(RGB(kolor[0], kolor[1], kolor[2]));
 
+	//namalowanie obszaru
 	dc->FillRgn(&Rgn, &brush);
+
+	//stworzenie scian
 	if (sciana[0] == 1)
 		{
 			p1.x=wspolrzedna[0];
@@ -101,4 +106,10 @@ void Obszar::Postaw(CDC *dc, Obiekt *obiekt)
 {
 	obiekt->ustalWierzcholki(wspolrzedna[0],wspolrzedna[1],wspolrzedna[4],wspolrzedna[5]);
 	obiekt->Rysuj(dc);
+}
+void Obszar::ustawKolor(int R,int G,int B)
+{
+	kolor[0] = R;
+	kolor[1] = G;
+	kolor[2] = B;
 }
