@@ -162,22 +162,27 @@ void ClabiryntDlg::OnPaint()
 	font->CreateFontA(25,0,0,0,0,0,0,0,0,0,0,0,0,0);
 
 	((CWnd*)GetDlgItem(IDC_STATIC3))->SetFont(font,1);
+	((CWnd*)GetDlgItem(IDC_STATIC4))->SetFont(font,1);
+	((CWnd*)GetDlgItem(IDC_STATIC5))->SetFont(font,1);
 	
 	delete font;
 	font = new CFont;
 	font->CreateFontA(17,0,0,0,0,0,0,0,0,0,0,0,0,0);
 
 	((CWnd*)GetDlgItem(IDC_STATIC1))->SetFont(font,1);
-	((CWnd*)GetDlgItem(IDOK))->SetFont(font,1);
 	
 	delete font;
 	font = new CFont;
 	font->CreateFontA(35,0,0,0,0,0,0,0,0,0,0,0,0,0);
 
+	((CWnd*)GetDlgItem(IDOK))->SetFont(font,1);
 	((CWnd*)GetDlgItem(IDC_EDIT1))->SetFont(font,1);
+	((CWnd*)GetDlgItem(IDC_EDIT2))->SetFont(font,1);
+	((CWnd*)GetDlgItem(IDC_EDIT3))->SetFont(font,1);
 
 	m_Text.Format("0");
 	((CEdit*)GetDlgItem(IDC_EDIT1))->SetWindowText(m_Text);
+	((CEdit*)GetDlgItem(IDC_EDIT2))->SetWindowText(m_Text);
 }
 
 // The system calls this function to obtain the cursor to display while the user drags
@@ -208,24 +213,40 @@ BOOL ClabiryntDlg::PreTranslateMessage(MSG* pMSG)
 			sterowanie->wPrawo();
 			m_Text.Format("%d",boh->ilePkt());
 			((CEdit*)GetDlgItem(IDC_EDIT1))->SetWindowText(m_Text);
+			m_Text.Format("%d",boh->ileRuchow());
+			((CEdit*)GetDlgItem(IDC_EDIT2))->SetWindowText(m_Text);
+			m_Text.Format("%d",sterowanie->ktoryLvl());
+			((CEdit*)GetDlgItem(IDC_EDIT3))->SetWindowText(m_Text);
 		}
 		if ( pMSG->wParam == VK_LEFT )
 		{
 			sterowanie->wLewo(); 
 			m_Text.Format("%d",boh->ilePkt());
 			((CEdit*)GetDlgItem(IDC_EDIT1))->SetWindowText(m_Text);
+			m_Text.Format("%d",boh->ileRuchow());
+			((CEdit*)GetDlgItem(IDC_EDIT2))->SetWindowText(m_Text);
+			m_Text.Format("%d",sterowanie->ktoryLvl());
+			((CEdit*)GetDlgItem(IDC_EDIT3))->SetWindowText(m_Text);
 		}
 		if ( pMSG->wParam == VK_UP )
 		{
 			sterowanie->wGore(); 
 			m_Text.Format("%d",boh->ilePkt());
 			((CEdit*)GetDlgItem(IDC_EDIT1))->SetWindowText(m_Text);
+			m_Text.Format("%d",boh->ileRuchow());
+			((CEdit*)GetDlgItem(IDC_EDIT2))->SetWindowText(m_Text);
+			m_Text.Format("%d",sterowanie->ktoryLvl());
+			((CEdit*)GetDlgItem(IDC_EDIT3))->SetWindowText(m_Text);
 		}
 		if ( pMSG->wParam == VK_DOWN )
 		{
 			sterowanie->wDol(); 
 			m_Text.Format("%d",boh->ilePkt());
 			((CEdit*)GetDlgItem(IDC_EDIT1))->SetWindowText(m_Text);
+			m_Text.Format("%d",boh->ileRuchow());
+			((CEdit*)GetDlgItem(IDC_EDIT2))->SetWindowText(m_Text);
+			m_Text.Format("%d",sterowanie->ktoryLvl());
+			((CEdit*)GetDlgItem(IDC_EDIT3))->SetWindowText(m_Text);
 		}
 		
 	}

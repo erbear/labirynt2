@@ -12,7 +12,8 @@ class UkladSterowania
 	CDC *dc;
 	int pozycja;
 	LabiryntGen generator;
-	int poziom;
+	int poziom;//poziom planszy
+	int lvl;
 public:
 	UkladSterowania(CDC*);
 	UkladSterowania(Plansza*,CDC*);
@@ -36,4 +37,6 @@ public:
 	void nastepnyPoziom();
 	void rozmiescKrysztaly(int);
 	int pobierzKrysztal(int);
+
+	int ktoryLvl();
 };

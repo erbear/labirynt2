@@ -5,6 +5,7 @@ Bohater::Bohater():Obiekt()
 {
 	IloscWierzcholkow = 3;
 	punkty = 0;
+	ruchy = 0;
 }
 
 
@@ -29,4 +30,12 @@ void Bohater::dodajPkt(int pkt)
 int Bohater::ilePkt()
 {
 	return punkty;
+}
+void Bohater::dodajRuch()
+{
+	ruchy++;
+}
+int Bohater::ileRuchow()
+{
+	return ruchy;
 }

@@ -8,6 +8,7 @@ UkladSterowania::UkladSterowania(CDC *DC)
 	poziom = 10;
 	mapa = new Plansza(poziom);
 	dc=DC;
+	lvl = 1;
 }
 
 
@@ -53,6 +54,7 @@ void UkladSterowania::wPrawo()
 			}
 			mapa->obszar[pozycja+1].Postaw(dc,bohater);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
+			bohater->dodajRuch();
 			pozycja += 1; //ustawia nowa pozycje
 			czyMeta();
 		}
@@ -74,6 +76,7 @@ void UkladSterowania::wLewo()
 			}
 			mapa->obszar[pozycja-1].Postaw(dc,bohater);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
+			bohater->dodajRuch();
 			pozycja -= 1;//ustawia nowa pozycje
 			czyMeta();
 		}
@@ -95,7 +98,7 @@ void UkladSterowania::wGore()
 			}
 			mapa->obszar[pozycja-poziom].Postaw(dc,bohater);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
-			
+			bohater->dodajRuch();
 			pozycja -= poziom;//ustawia nowa pozycje
 			czyMeta();
 		}
@@ -117,6 +120,7 @@ void UkladSterowania::wDol()
 			}
 			mapa->obszar[pozycja+poziom].Postaw(dc,bohater);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
+			bohater->dodajRuch();
 			pozycja += poziom;//ustawia nowa pozycje
 			czyMeta();
 
@@ -155,6 +159,7 @@ void UkladSterowania::nastepnyPoziom()
 		poziom++;
 	}
 	delete mapa;
+	lvl++;
 	mapa = new Plansza(poziom);
 	stworzPlansze();
 	Start();
@@ -181,4 +186,8 @@ void UkladSterowania::rozmiescKrysztaly(int ilosc)
 	}
 	delete wsk;
 	wsk=0;
+}
+int UkladSterowania::ktoryLvl()
+{
+	return lvl;
 }
