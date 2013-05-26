@@ -12,13 +12,14 @@ class LabiryntGen
 	int *odwiedzony;
 	int *graniczacy;
 	int n,v;//ilosc obszarow w planszy i poziom planszy;
+	int wersja;//wersja labiryntu
 public:
-	LabiryntGen(void);
+	LabiryntGen();
 	LabiryntGen(Plansza*);//argumentem jest poziom planszy
-	~LabiryntGen(void);
+	~LabiryntGen();
 
-	void nowaPlansza(Plansza*);
-	void Generuj();
-
+	void nowaPlansza(Plansza*);//przygotowuje generator do kolejnego generowania
+	void Generuj();//generuje labirynt
+	void nastepnaWersja();//zmienia wersje labiryntu
 };
 

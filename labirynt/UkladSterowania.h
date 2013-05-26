@@ -19,6 +19,7 @@ class UkladSterowania
 	int lvl;//poziom aktualnej gry
 	string pierwsze, drugie, trzecie;
 	int lvl1,lvl2,lvl3;
+	int uruchom;//odpowiada za to czy mozna juz skrecac
 public:
 	UkladSterowania(CDC*);
 	~UkladSterowania();

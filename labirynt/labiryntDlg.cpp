@@ -150,7 +150,8 @@ void ClabiryntDlg::OnPaint()
 	CDC *dc = GetDC();
 	
 	sterowanie = new UkladSterowania(dc);
-	
+	boh = new Bohater();
+
 	sterowanie->stworzPlansze();
 
 	CFont *font;
@@ -209,7 +210,6 @@ void ClabiryntDlg::OnBnClickedOk()
 {
 	CDC *dc = GetDC();
 	
-	boh = new Bohater();
 	sterowanie->dodajBohatera(boh);
 	sterowanie->Start();
 	

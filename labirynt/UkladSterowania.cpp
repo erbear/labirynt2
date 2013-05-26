@@ -15,6 +15,8 @@ UkladSterowania::UkladSterowania(CDC *DC)
 	pierwsze = "";
 	drugie = "";
 	trzecie = "";
+	pozycja = -1;
+	uruchom = 0;
 }
 
 
@@ -41,99 +43,113 @@ void UkladSterowania::Start()
 	bohater->Rysuj(dc);
 
 	pozycja = start;
+	uruchom = 1;
 }
 void UkladSterowania::wPrawo()
 {
-	//pobiera liczbe obszarow w wierszu
-	int poziom = mapa->pobierzPoziom();
-	//sprawsza czy istnieje obszar po prawej stronie na ktory mozna sie ruszyc
-	if ((pozycja+1) % poziom !=0)
+	if (pozycja>=0)
 	{
-		//sprawdza czy na obszarze po prawej stronie jest sciana
-		if (mapa->obszar[pozycja+1].czySciana(0)!=1)
+		//pobiera liczbe obszarow w wierszu
+		int poziom = mapa->pobierzPoziom();
+		//sprawsza czy istnieje obszar po prawej stronie na ktory mozna sie ruszyc
+		if ((pozycja+1) % poziom !=0)
 		{
-			//sprawdza czy kolejne pole ma w sobie jakis krysztal i pobiera go
-			int punkty = pobierzKrysztal(pozycja+1);
-			if (punkty)
+			//sprawdza czy na obszarze po prawej stronie jest sciana
+			if (mapa->obszar[pozycja+1].czySciana(0)!=1)
 			{
-				bohater->dodajPkt(punkty);
-				mapa->obszar[pozycja+1].Wyczysc(dc);
+				//sprawdza czy kolejne pole ma w sobie jakis krysztal i pobiera go
+				int punkty = pobierzKrysztal(pozycja+1);
+				if (punkty)
+				{
+					bohater->dodajPkt(punkty);
+					mapa->obszar[pozycja+1].Wyczysc(dc);
+				}
+				mapa->obszar[pozycja+1].Postaw(dc,bohater);//rysuje obiekt na obszarze
+				mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
+				bohater->dodajRuch();//dodaje jedynke do zmiennej ruchy w obiekcie
+				pozycja += 1; //ustawia nowa pozycje
+				czyMeta();//sprawdza czy obiekt stanal na mecie, jesli tak to zaczyna nowa plansze
 			}
-			mapa->obszar[pozycja+1].Postaw(dc,bohater);//rysuje obiekt na obszarze
-			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
-			bohater->dodajRuch();//dodaje jedynke do zmiennej ruchy w obiekcie
-			pozycja += 1; //ustawia nowa pozycje
-			czyMeta();//sprawdza czy obiekt stanal na mecie, jesli tak to zaczyna nowa plansze
 		}
 	}
 }
 void UkladSterowania::wLewo()
 {
-	//sprawsza czy istnieje obszar po lewej stronie na ktory mozna sie ruszyc
-	if ((pozycja+1) % mapa->pobierzPoziom() !=1)
+	if (pozycja>=0)
 	{
 		//sprawsza czy istnieje obszar po lewej stronie na ktory mozna sie ruszyc
-		if (mapa->obszar[pozycja].czySciana(0)!=1)
+		if ((pozycja+1) % mapa->pobierzPoziom() !=1)
 		{
-			//sprawdza czy kolejne pole ma w sobie jakis krysztal i pobiera go
-			int punkty = pobierzKrysztal(pozycja-1);
-			if (punkty)
+			//sprawsza czy istnieje obszar po lewej stronie na ktory mozna sie ruszyc
+			if (mapa->obszar[pozycja].czySciana(0)!=1)
 			{
-				bohater->dodajPkt(punkty);
-				mapa->obszar[pozycja-1].Wyczysc(dc);
+				//sprawdza czy kolejne pole ma w sobie jakis krysztal i pobiera go
+				int punkty = pobierzKrysztal(pozycja-1);
+				if (punkty)
+				{
+					bohater->dodajPkt(punkty);
+					mapa->obszar[pozycja-1].Wyczysc(dc);
+				}
+				mapa->obszar[pozycja-1].Postaw(dc,bohater);//rysuje obiekt na obszarze
+				mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
+				bohater->dodajRuch();
+				pozycja -= 1;//ustawia nowa pozycje
+				czyMeta();//sprawdza czy obiekt stanal na mecie, jesli tak to zaczyna nowa plansze
 			}
-			mapa->obszar[pozycja-1].Postaw(dc,bohater);//rysuje obiekt na obszarze
-			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
-			bohater->dodajRuch();
-			pozycja -= 1;//ustawia nowa pozycje
-			czyMeta();//sprawdza czy obiekt stanal na mecie, jesli tak to zaczyna nowa plansze
 		}
 	}
 }
 
 void UkladSterowania::wGore()
 {
-	int poziom = mapa->pobierzPoziom();
-	if (pozycja+1 > poziom)
+	
+	if (pozycja>=0)
 	{
-			//sprawdza czy kolejne pole ma w sobie jakis krysztal i pobiera go
-		if (mapa->obszar[pozycja].czySciana(1)!=1)
+		int poziom = mapa->pobierzPoziom();
+		if (pozycja+1 > poziom)
 		{
-			int punkty = pobierzKrysztal(pozycja-poziom);
-			if (punkty)
+				//sprawdza czy kolejne pole ma w sobie jakis krysztal i pobiera go
+			if (mapa->obszar[pozycja].czySciana(1)!=1)
 			{
-				bohater->dodajPkt(punkty);
-				mapa->obszar[pozycja-poziom].Wyczysc(dc);
+				int punkty = pobierzKrysztal(pozycja-poziom);
+				if (punkty)
+				{
+					bohater->dodajPkt(punkty);
+					mapa->obszar[pozycja-poziom].Wyczysc(dc);
+				}
+				mapa->obszar[pozycja-poziom].Postaw(dc,bohater);//rysuje obiekt na obszarze
+				mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
+				bohater->dodajRuch();
+				pozycja -= poziom;//ustawia nowa pozycje
+				czyMeta();//sprawdza czy obiekt stanal na mecie, jesli tak to zaczyna nowa plansze
 			}
-			mapa->obszar[pozycja-poziom].Postaw(dc,bohater);//rysuje obiekt na obszarze
-			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
-			bohater->dodajRuch();
-			pozycja -= poziom;//ustawia nowa pozycje
-			czyMeta();//sprawdza czy obiekt stanal na mecie, jesli tak to zaczyna nowa plansze
 		}
 	}
 }
 
 void UkladSterowania::wDol()
 {
-	int poziom = mapa->pobierzPoziom();
-	if (pozycja+poziom+1 <= (poziom*poziom))
+	if (pozycja>=0)
 	{
-			//sprawdza czy kolejne pole ma w sobie jakis krysztal i pobiera go
-		if (mapa->obszar[pozycja+poziom].czySciana(1)!=1)
+		int poziom = mapa->pobierzPoziom();
+		if (pozycja+poziom+1 <= (poziom*poziom))
 		{
-			int punkty = pobierzKrysztal(pozycja+poziom);
-			if (punkty)
+				//sprawdza czy kolejne pole ma w sobie jakis krysztal i pobiera go
+			if (mapa->obszar[pozycja+poziom].czySciana(1)!=1)
 			{
-				bohater->dodajPkt(punkty);
-				mapa->obszar[pozycja+poziom].Wyczysc(dc);
-			}
-			mapa->obszar[pozycja+poziom].Postaw(dc,bohater);//rysuje obiekt na obszarze
-			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
-			bohater->dodajRuch();
-			pozycja += poziom;//ustawia nowa pozycje
-			czyMeta();//sprawdza czy obiekt stanal na mecie, jesli tak to zaczyna nowa plansze
+				int punkty = pobierzKrysztal(pozycja+poziom);
+				if (punkty)
+				{
+					bohater->dodajPkt(punkty);
+					mapa->obszar[pozycja+poziom].Wyczysc(dc);
+				}
+				mapa->obszar[pozycja+poziom].Postaw(dc,bohater);//rysuje obiekt na obszarze
+				mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
+				bohater->dodajRuch();
+				pozycja += poziom;//ustawia nowa pozycje
+				czyMeta();//sprawdza czy obiekt stanal na mecie, jesli tak to zaczyna nowa plansze
 
+			}
 		}
 	}
 }
