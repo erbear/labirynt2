@@ -1,24 +1,33 @@
 #pragma once
 #include "Obiekt.h"
+#include "Krysztal.h"
 class Obszar
 {
-	int *sciana;
-	int *wspolrzedna;
-	int kolor[3];
-	CRgn *rgn;
+	int *sciana;//wskaznik na tabice 2 elementow w ktorej znaduja sie sciany, lewa i gorna
+	int *wspolrzedna;//wskaznik na 8 elementow, sa to wspolrzedne 4 punktow obszaru
+	int kolor[3];//tabica 3 zmiennych ktore odpowiadaja za kolor obszaru
+	int zajety;//czy jakis obiekt jest na tym obszarze
+	Krysztal *krysztal;
 public:
-	Obszar(void);
-	~Obszar(void);
+	Obszar();
+	~Obszar();
 
-	void ustawSciane(int);
-	int czySciana(int);
+	void ustawSciane(int);//ustawia w zmiennej sciana 1, w argumencie znajduje sie sciana lewa(0) lub gorna(1)
+	void usunSciane(int);//usuwa sciane czyli ustawia w zmiennej sciana 0, w argumencie znajduje sie sciana lewa(0) lub gorna(1)
+	int czySciana(int);//sprawdza czy jest ustawiona sciana
 	
-	void usunSciane(int);
+	void zajmij(Krysztal &);
+	void zwolnij();
+	int czyZajety();
 
-	void ustawWspolrzedne(int, int, int);
-	int pobierzWspolrzedna(int);
+	int ilePkt();
 
-	void Maluj(CDC*);
-	void Postaw(CDC*,Obiekt*);
-	void Wyczysc(CDC*);
+	void ustawWspolrzedne(int, int, int);//ustawia wspolrzedne obszaru, pierwsze dwa argumenty to wspolrzedne lewego gornego punktu. trzeci argument to dlugosc boku
+	int pobierzWspolrzedna(int);//pobiera dana wspolrzedna
+
+	void Maluj(CDC*);//umieszcza obszar w odpowiednim miejscu na oknie
+	void Postaw(CDC*,Obiekt*);//stawia obiekt na obszarze
+	void Wyczysc(CDC*,int = 1);//czysci obszar, drugi argument odpowiada za sciemnianie koloru
+
+	void ustawKolor(int,int,int);//ustawia kolor obszaru
 };

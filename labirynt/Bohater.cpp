@@ -1,11 +1,12 @@
 #include "StdAfx.h"
 #include "Bohater.h"
 
-
-Bohater::Bohater(int x1,int y1,int x2,int y2):Obiekt(x1,y1,x2,y2)
+Bohater::Bohater():Obiekt()
 {
 	IloscWierzcholkow = 3;
+	punkty = 0;
 }
+
 
 
 Bohater::~Bohater(void)
@@ -20,4 +21,12 @@ void Bohater::ustalWierzcholki(int x1,int y1,int x2,int y2)
 	P2.y = y2 - odstep-1;
 	P3.x = x2 - odstep-1;
 	P3.y = y2 - odstep-1;
+}
+void Bohater::dodajPkt(int pkt)
+{
+	punkty += pkt;
+}
+int Bohater::ilePkt()
+{
+	return punkty;
 }

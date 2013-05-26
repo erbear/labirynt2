@@ -3,9 +3,12 @@
 class Krysztal :
 	public Obiekt
 {
+	int punkty;
 public:
-	Krysztal(int,int,int,int);
+	Krysztal();
+	Krysztal(Krysztal&);
 	~Krysztal(void);
 	void ustalWierzcholki(int,int,int,int);
+	int pobierzPunkty();
 };
 

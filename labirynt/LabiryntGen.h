@@ -7,6 +7,7 @@ using namespace std;
 
 class LabiryntGen
 {
+	Plansza *plansza;
 	vector <int> graniczace;
 	int *odwiedzony;
 	int *graniczacy;
@@ -16,7 +17,8 @@ public:
 	LabiryntGen(Plansza*);//argumentem jest poziom planszy
 	~LabiryntGen(void);
 
-	void Generuj(Plansza*);
+	void nowaPlansza(Plansza*);
+	void Generuj();
 
 };
 

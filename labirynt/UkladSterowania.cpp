@@ -1,17 +1,13 @@
 #include "StdAfx.h"
 #include "UkladSterowania.h"
+#include <vector>
 
-UkladSterowania::UkladSterowania()
+using namespace std;
+UkladSterowania::UkladSterowania(CDC *DC)
 {
-
-}
-UkladSterowania::UkladSterowania(Plansza *wsk,CDC *DC)
-{
-	mapa = wsk;
+	poziom = 10;
+	mapa = new Plansza(poziom);
 	dc=DC;
-	start = 0;
-	int n = mapa->pobierzPoziom();
-	meta = n*n;
 }
 
 
@@ -19,12 +15,13 @@ UkladSterowania::~UkladSterowania()
 {
 
 }
-void UkladSterowania::dodajBohatera(Obiekt *wsk)
+void UkladSterowania::dodajBohatera(Bohater *wsk)
 {
-	obiekt = wsk;
+	bohater = wsk;
 }
-void UkladSterowania::naStart()
+void UkladSterowania::Start()
 {
+	int start=mapa->pobierzStart();
 	int x1,y1,x2,y2;
 	// wspolrzedne lewego gornego punktu obszaru
 	x1 = mapa->obszar[start].pobierzWspolrzedna(0);
@@ -33,8 +30,8 @@ void UkladSterowania::naStart()
 	x2 = mapa->obszar[start].pobierzWspolrzedna(4);
 	y2 = mapa->obszar[start].pobierzWspolrzedna(5);
 
-	obiekt->ustalWierzcholki(x1,y1,x2,y2);
-	obiekt->Rysuj(dc);
+	bohater->ustalWierzcholki(x1,y1,x2,y2);
+	bohater->Rysuj(dc);
 
 	pozycja = start;
 }
@@ -48,10 +45,16 @@ void UkladSterowania::wPrawo()
 		//sprawdza czy na obszarze po prawej stronie jest sciana
 		if (mapa->obszar[pozycja+1].czySciana(0)!=1)
 		{
-
-			mapa->obszar[pozycja+1].Postaw(dc,obiekt);//rysuje obiekt na obszarze
+			int punkty = pobierzKrysztal(pozycja+1);
+			if (punkty)
+			{
+				bohater->dodajPkt(punkty);
+				mapa->obszar[pozycja+1].Wyczysc(dc);
+			}
+			mapa->obszar[pozycja+1].Postaw(dc,bohater);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
 			pozycja += 1; //ustawia nowa pozycje
+			czyMeta();
 		}
 	}
 }
@@ -63,9 +66,16 @@ void UkladSterowania::wLewo()
 		//sprawsza czy istnieje obszar po lewej stronie na ktory mozna sie ruszyc
 		if (mapa->obszar[pozycja].czySciana(0)!=1)
 		{
-			mapa->obszar[pozycja-1].Postaw(dc,obiekt);//rysuje obiekt na obszarze
+			int punkty = pobierzKrysztal(pozycja-1);
+			if (punkty)
+			{
+				bohater->dodajPkt(punkty);
+				mapa->obszar[pozycja-1].Wyczysc(dc);
+			}
+			mapa->obszar[pozycja-1].Postaw(dc,bohater);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
 			pozycja -= 1;//ustawia nowa pozycje
+			czyMeta();
 		}
 	}
 }
@@ -77,9 +87,17 @@ void UkladSterowania::wGore()
 	{
 		if (mapa->obszar[pozycja].czySciana(1)!=1)
 		{
-			mapa->obszar[pozycja-poziom].Postaw(dc,obiekt);//rysuje obiekt na obszarze
+			int punkty = pobierzKrysztal(pozycja-poziom);
+			if (punkty)
+			{
+				bohater->dodajPkt(punkty);
+				mapa->obszar[pozycja-poziom].Wyczysc(dc);
+			}
+			mapa->obszar[pozycja-poziom].Postaw(dc,bohater);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
+			
 			pozycja -= poziom;//ustawia nowa pozycje
+			czyMeta();
 		}
 	}
 }
@@ -91,17 +109,76 @@ void UkladSterowania::wDol()
 	{
 		if (mapa->obszar[pozycja+poziom].czySciana(1)!=1)
 		{
-			mapa->obszar[pozycja+poziom].Postaw(dc,obiekt);//rysuje obiekt na obszarze
+			int punkty = pobierzKrysztal(pozycja+poziom);
+			if (punkty)
+			{
+				bohater->dodajPkt(punkty);
+				mapa->obszar[pozycja+poziom].Wyczysc(dc);
+			}
+			mapa->obszar[pozycja+poziom].Postaw(dc,bohater);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
 			pozycja += poziom;//ustawia nowa pozycje
+			czyMeta();
+
 		}
 	}
 }
-void UkladSterowania::ustawStart(int i)
+int UkladSterowania::pobierzKrysztal(int pozycja)
 {
-	start = i;
+	int ilosc = mapa->obszar[pozycja].ilePkt();
+	if (ilosc != 0)
+	{
+		mapa->obszar[pozycja].zwolnij();
+	}
+	return ilosc;
 }
-void UkladSterowania::ustawMete(int i)
+void UkladSterowania::stworzPlansze()
 {
-	meta = i;
+	generator.nowaPlansza(mapa);
+	generator.Generuj();
+	mapa->Buduj(dc);
+	rozmiescKrysztaly(10);
+}
+void UkladSterowania::czyMeta()
+{
+	if (pozycja==mapa->pobierzMete())
+	{
+		nastepnyPoziom();
+	}
+}
+void UkladSterowania::nastepnyPoziom()
+{
+	poziom+=1;
+	int wielkosc = mapa->pobierzWielkosc();
+	while (wielkosc % poziom !=0)
+	{
+		poziom++;
+	}
+	delete mapa;
+	mapa = new Plansza(poziom);
+	stworzPlansze();
+	Start();
+	
+}
+void UkladSterowania::rozmiescKrysztaly(int ilosc)
+{
+	Krysztal krysztal;
+	int wielkosc = mapa->pobierzPoziom();
+	wielkosc= wielkosc *wielkosc - 2;
+	int *wsk;
+	wsk = new int[wielkosc];
+
+	for (int i = 0; i<ilosc;i++)
+	{
+		int wylosowana = rand() % wielkosc;
+		if (wsk[wylosowana] != 1)
+		{
+			wsk[wylosowana] = 1;
+			mapa->obszar[wylosowana+2].zajmij(krysztal);
+			mapa->obszar[wylosowana+2].Postaw(dc,&krysztal);
+		}	
+
+	}
+	delete wsk;
+	wsk=0;
 }

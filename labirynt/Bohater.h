@@ -3,9 +3,12 @@
 class Bohater :
 	public Obiekt
 {
+	int punkty;
 public:
-	Bohater(int,int,int,int);
+	Bohater();
 	~Bohater(void);
 	void ustalWierzcholki(int,int,int,int);
+	void dodajPkt(int);
+	int ilePkt();
 };
 
