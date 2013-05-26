@@ -9,6 +9,12 @@ UkladSterowania::UkladSterowania(CDC *DC)
 	mapa = new Plansza(poziom);
 	dc=DC;
 	lvl = 1;
+	lvl1=0;
+	lvl2=0;
+	lvl3=0;
+	pierwsze = "";
+	drugie = "";
+	trzecie = "";
 }
 
 
@@ -209,4 +215,116 @@ void UkladSterowania::rozmiescKrysztaly(int ilosc)
 int UkladSterowania::ktoryLvl()
 {
 	return lvl;
+}
+void UkladSterowania::zapiszWyniki(string kto)
+{
+	int miejsce = ktoreMiejsce();
+	fstream plik2;
+	plik2.open("tabela.txt",std::ios::out | std::ios::trunc);
+	if (miejsce == 1)
+	{
+		plik2<<lvl<<"."<<kto<<"."<<endl;
+	}else
+	{
+		plik2<<lvl1<<"."<<pierwsze<<"."<<endl;
+	}
+	if (miejsce == 2)
+	{
+		plik2<<lvl<<"."<<kto<<"."<<endl;
+	}else
+	{
+		plik2<<lvl2<<"."<<drugie<<"."<<endl;
+	}
+	if (miejsce == 3)
+	{
+		plik2<<lvl<<"."<<kto<<"."<<endl;
+	}else
+	{
+		plik2<<lvl3<<"."<<trzecie<<"."<<endl;
+	}
+	plik2.close();
+}
+void UkladSterowania::wczytajWyniki()
+{
+	ifstream plik;
+	plik.open("tabela.txt", std::ios::in | std::ios::out);
+	int j=0;
+	if (plik.good()){
+		string wiersz;
+		for( bool bWczytano = getline( plik, wiersz ); bWczytano; bWczytano = getline( plik, wiersz ) )
+		{
+			string lvl="",nazwa="";
+			int i=0;
+			while (wiersz[i]!='.')
+			{
+				lvl+=wiersz[i];
+				i++;
+			}
+			i++;
+			while (wiersz[i]!='.')
+			{
+				nazwa+=wiersz[i];
+				i++;
+			}
+			if (j==0)
+			{
+				pierwsze = nazwa;
+				lvl1 = atof(lvl.c_str());
+			}
+			if (j==1)
+			{
+				drugie = nazwa;
+				lvl2 = atof(lvl.c_str());
+			}
+			if (j==2)
+			{
+				trzecie = nazwa;
+				lvl3 = atof(lvl.c_str());
+			}
+			j++;
+		}
+	}
+}
+int UkladSterowania::ktoreMiejsce()
+{
+	if (lvl>lvl1) return 1;
+	else if (lvl>lvl2) return 2;
+	else if (lvl>lvl3) return 3;
+	else return 0;
+}
+int UkladSterowania::czyRekord()
+{
+	if (ktoreMiejsce()) return 1;
+	else return 0;
+
+}
+string UkladSterowania::m_pierwsze()
+{
+	return pierwsze;
+
+}
+string UkladSterowania::m_drugie()
+{
+	return drugie;
+
+}
+string UkladSterowania::m_trzecie()
+{
+	return trzecie;
+
+}
+int UkladSterowania::m_lvl1()
+{
+	return lvl1;
+
+}
+int UkladSterowania::m_lvl2()
+{
+	return lvl2;
+
+}
+int UkladSterowania::m_lvl3()
+{
+	return lvl3;
+
 }

@@ -64,6 +64,7 @@ BEGIN_MESSAGE_MAP(ClabiryntDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDOK, &ClabiryntDlg::OnBnClickedOk)
+	ON_BN_CLICKED(IDCANCEL, &ClabiryntDlg::OnBnClickedCancel)
 END_MESSAGE_MAP()
 
 
@@ -183,6 +184,16 @@ void ClabiryntDlg::OnPaint()
 	m_Text.Format("0");
 	((CEdit*)GetDlgItem(IDC_EDIT1))->SetWindowText(m_Text);
 	((CEdit*)GetDlgItem(IDC_EDIT2))->SetWindowText(m_Text);
+
+	
+	sterowanie->wczytajWyniki();
+	m_Text.Format("1. %s (%d)", sterowanie->m_pierwsze().c_str(), sterowanie->m_lvl1());
+	((CEdit*)GetDlgItem(IDC_STATIC6))->SetWindowText(m_Text);
+	m_Text.Format("2. %s (%d)", sterowanie->m_drugie().c_str(),sterowanie->m_lvl2());
+	((CEdit*)GetDlgItem(IDC_STATIC7))->SetWindowText(m_Text);
+	m_Text.Format("3. %s (%d)", sterowanie->m_trzecie().c_str(),sterowanie->m_lvl3());
+	((CEdit*)GetDlgItem(IDC_STATIC8))->SetWindowText(m_Text);
+
 }
 
 // The system calls this function to obtain the cursor to display while the user drags
@@ -251,4 +262,24 @@ BOOL ClabiryntDlg::PreTranslateMessage(MSG* pMSG)
 		
 	}
 		return CDialog::PreTranslateMessage(pMSG);
+}
+
+
+void ClabiryntDlg::OnBnClickedCancel()
+{
+	// TODO: Add your control notification handler code here
+	if (sterowanie->czyRekord())
+	{
+		int nRet = Okno.DoModal();
+
+		if ( nRet == IDOK )
+		{
+			string tmp;
+			m_Text = Okno.getm_Text();
+			tmp = m_Text;
+			sterowanie->zapiszWyniki(tmp);
+			CDialogEx::OnCancel();
+		}
+	}else
+	CDialogEx::OnCancel();
 }

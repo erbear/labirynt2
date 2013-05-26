@@ -60,6 +60,9 @@
     <ClInclude Include="Krysztal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ZapiszDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="labirynt.cpp">
@@ -90,6 +93,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Krysztal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZapiszDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

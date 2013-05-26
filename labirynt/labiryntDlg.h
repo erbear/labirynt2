@@ -9,7 +9,7 @@
 #include "UkladSterowania.h"
 #include "Bohater.h"
 #include "Krysztal.h"
-
+#include "ZapiszDlg.h"
 // ClabiryntDlg dialog
 class ClabiryntDlg : public CDialogEx
 {
@@ -32,6 +32,7 @@ protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
+	ZapiszDlg Okno;
 	afx_msg HCURSOR OnQueryDragIcon();
 	Plansza *plansza;
 	LabiryntGen *generator;
@@ -44,6 +45,7 @@ protected:
 public:
 	afx_msg void OnBnClickedOk();
 	BOOL ClabiryntDlg::PreTranslateMessage(MSG* pMSG);
+	afx_msg void OnBnClickedCancel();
 };
 
 
