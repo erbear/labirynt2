@@ -39,6 +39,7 @@ protected:
 	Obiekt *bohater;
 	Bohater *boh;
 	CString m_Text;
+	RECT *rct;
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
