@@ -3,10 +3,12 @@
 #include "Obiekt.h"
 #include "LabiryntGen.h"
 #include "Plansza.h"
+#include "Krysztal.h"
+#include "Bohater.h"
 class UkladSterowania
 {
 	Plansza *mapa;
-	Obiekt *obiekt;
+	Bohater *bohater;
 	CDC *dc;
 	int pozycja;
 	LabiryntGen generator;
@@ -17,7 +19,7 @@ public:
 	~UkladSterowania();
 	
 	//zarzadzanie obiektem
-	void dodajBohatera(Obiekt*);
+	void dodajBohatera(Bohater*);
 
 	//sterowanie obiektem w 4 strony
 	void wLewo();
@@ -32,4 +34,6 @@ public:
 	void ustawMete(int);//odpowiada za pole mety 1 - poziom *poziom
 	void czyMeta();
 	void nastepnyPoziom();
+	void rozmiescKrysztaly(int);
+	int pobierzKrysztal(int);
 };

@@ -100,6 +100,8 @@ BOOL ClabiryntDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 	return TRUE;  // return TRUE  unless you set the focus to a control
+	
+
 }
 
 void ClabiryntDlg::OnSysCommand(UINT nID, LPARAM lParam)
@@ -137,11 +139,19 @@ void ClabiryntDlg::OnPaint()
 
 		// Draw the icon
 		dc.DrawIcon(x, y, m_hIcon);
+
+
 	}
 	else
 	{
 		CDialogEx::OnPaint();
 	}
+	CDC *dc = GetDC();
+	
+	sterowanie = new UkladSterowania(dc);
+	
+	sterowanie->stworzPlansze();
+
 }
 
 // The system calls this function to obtain the cursor to display while the user drags
@@ -156,13 +166,11 @@ HCURSOR ClabiryntDlg::OnQueryDragIcon()
 void ClabiryntDlg::OnBnClickedOk()
 {
 	CDC *dc = GetDC();
-	sterowanie = new UkladSterowania(dc);
-	bohater = new Bohater();
 	
-	sterowanie->stworzPlansze();
-	sterowanie->dodajBohatera(bohater);
+	boh = new Bohater();
+	sterowanie->dodajBohatera(boh);
 	sterowanie->Start();
-
+	
 }
 
 BOOL ClabiryntDlg::PreTranslateMessage(MSG* pMSG)
@@ -172,18 +180,26 @@ BOOL ClabiryntDlg::PreTranslateMessage(MSG* pMSG)
         if ( pMSG->wParam == VK_RIGHT ) 
         {
 			sterowanie->wPrawo();
+			m_Text.Format("Punkty: %d",boh->ilePkt());
+			((CEdit*)GetDlgItem(IDC_EDIT1))->SetWindowText(m_Text);
 		}
 		if ( pMSG->wParam == VK_LEFT )
 		{
 			sterowanie->wLewo(); 
+			m_Text.Format("Punkty: %d",boh->ilePkt());
+			((CEdit*)GetDlgItem(IDC_EDIT1))->SetWindowText(m_Text);
 		}
 		if ( pMSG->wParam == VK_UP )
 		{
 			sterowanie->wGore(); 
+			m_Text.Format("Punkty: %d",boh->ilePkt());
+			((CEdit*)GetDlgItem(IDC_EDIT1))->SetWindowText(m_Text);
 		}
 		if ( pMSG->wParam == VK_DOWN )
 		{
 			sterowanie->wDol(); 
+			m_Text.Format("Punkty: %d",boh->ilePkt());
+			((CEdit*)GetDlgItem(IDC_EDIT1))->SetWindowText(m_Text);
 		}
 		
 	}

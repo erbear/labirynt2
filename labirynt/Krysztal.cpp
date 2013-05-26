@@ -4,6 +4,16 @@
 Krysztal::Krysztal():Obiekt()
 {
 	IloscWierzcholkow=4;
+	punkty = 1;
+}
+Krysztal::Krysztal(Krysztal &kry):Obiekt()
+{
+	P1 = kry.P1;
+	P2 = kry.P2;
+	P3 = kry.P3;
+	P4 = kry.P4;
+	IloscWierzcholkow=4;
+	punkty = 1;
 }
 
 
@@ -22,4 +32,8 @@ void Krysztal::ustalWierzcholki(int x1,int y1,int x2,int y2)
 	P3.y = y2 -1;
 	P4.x = x1 + odstep3;
 	P4.y = y1 + odstep1;
+}
+int Krysztal::pobierzPunkty()
+{
+	return punkty;
 }

@@ -38,6 +38,7 @@ protected:
 	UkladSterowania *sterowanie;
 	Obiekt *bohater;
 	Bohater *boh;
+	CString m_Text;
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();

@@ -10,6 +10,7 @@ Obszar::Obszar()
 	kolor[0] = 255;
 	kolor[1] = 255;
 	kolor[2] = 153;
+	zajety = 0;
 }
 
 
@@ -92,18 +93,21 @@ void Obszar::Maluj(CDC *dc)
 			dc->Polyline(tab,2);
 		}
 }
-void Obszar::Wyczysc(CDC *dc)
+void Obszar::Wyczysc(CDC *dc, int czySciemnic)
 {
 	int RoznicaKoloru = 20; //szybkosc sciemniania koloru przechodzonej drogi
 	CRgn rgn;
 	rgn.CreateRectRgn(wspolrzedna[0]+1,wspolrzedna[1]+1,wspolrzedna[4],wspolrzedna[5]);
 	
-	CBrush brush(RGB((kolor[1]<=RoznicaKoloru && kolor[0]>RoznicaKoloru) ? kolor[0]-=RoznicaKoloru  : kolor[0], (kolor[2]<=RoznicaKoloru && kolor[1]>RoznicaKoloru)? kolor[1]-=RoznicaKoloru : kolor[1], kolor[2]>RoznicaKoloru ? kolor[2]-=RoznicaKoloru:kolor[2]));
+	CBrush brush(RGB((kolor[1]<=RoznicaKoloru && kolor[0]>RoznicaKoloru && czySciemnic == 1) ? kolor[0]-=RoznicaKoloru  : kolor[0], (kolor[2]<=RoznicaKoloru && kolor[1]>RoznicaKoloru && czySciemnic == 1)? kolor[1]-=RoznicaKoloru : kolor[1], (kolor[2]>RoznicaKoloru && czySciemnic == 1) ? kolor[2]-=RoznicaKoloru:kolor[2]));
 
 	dc->FillRgn(&rgn, &brush);
 }
 void Obszar::Postaw(CDC *dc, Obiekt *obiekt)
 {
+	if (czyZajety() != 1){
+		Wyczysc(dc,0);
+	}
 	obiekt->ustalWierzcholki(wspolrzedna[0],wspolrzedna[1],wspolrzedna[4],wspolrzedna[5]);
 	obiekt->Rysuj(dc);
 }
@@ -112,4 +116,26 @@ void Obszar::ustawKolor(int R,int G,int B)
 	kolor[0] = R;
 	kolor[1] = G;
 	kolor[2] = B;
+}
+void Obszar::zajmij(Krysztal &kry)
+{
+	zajety = 1;
+	krysztal = new Krysztal(kry);
+}
+void Obszar::zwolnij()
+{
+	delete krysztal;
+	zajety = 0;
+}
+int Obszar::czyZajety()
+{
+	return zajety;
+}
+int Obszar::ilePkt()
+{
+	if (czyZajety() == 1)
+	{
+		return krysztal->pobierzPunkty();
+	}
+	else return 0;
 }
