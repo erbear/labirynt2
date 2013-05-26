@@ -5,7 +5,7 @@
 using namespace std;
 UkladSterowania::UkladSterowania(CDC *DC)
 {
-	poziom = 10;
+	poziom = 10;//ustalenie pierwszego poziomu
 	mapa = new Plansza(poziom);
 	dc=DC;
 	lvl = 1;
@@ -46,6 +46,7 @@ void UkladSterowania::wPrawo()
 		//sprawdza czy na obszarze po prawej stronie jest sciana
 		if (mapa->obszar[pozycja+1].czySciana(0)!=1)
 		{
+			//sprawdza czy kolejne pole ma w sobie jakis krysztal i pobiera go
 			int punkty = pobierzKrysztal(pozycja+1);
 			if (punkty)
 			{
@@ -54,9 +55,9 @@ void UkladSterowania::wPrawo()
 			}
 			mapa->obszar[pozycja+1].Postaw(dc,bohater);//rysuje obiekt na obszarze
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
-			bohater->dodajRuch();
+			bohater->dodajRuch();//dodaje jedynke do zmiennej ruchy w obiekcie
 			pozycja += 1; //ustawia nowa pozycje
-			czyMeta();
+			czyMeta();//sprawdza czy obiekt stanal na mecie, jesli tak to zaczyna nowa plansze
 		}
 	}
 }
@@ -68,6 +69,7 @@ void UkladSterowania::wLewo()
 		//sprawsza czy istnieje obszar po lewej stronie na ktory mozna sie ruszyc
 		if (mapa->obszar[pozycja].czySciana(0)!=1)
 		{
+			//sprawdza czy kolejne pole ma w sobie jakis krysztal i pobiera go
 			int punkty = pobierzKrysztal(pozycja-1);
 			if (punkty)
 			{
@@ -78,7 +80,7 @@ void UkladSterowania::wLewo()
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
 			bohater->dodajRuch();
 			pozycja -= 1;//ustawia nowa pozycje
-			czyMeta();
+			czyMeta();//sprawdza czy obiekt stanal na mecie, jesli tak to zaczyna nowa plansze
 		}
 	}
 }
@@ -88,6 +90,7 @@ void UkladSterowania::wGore()
 	int poziom = mapa->pobierzPoziom();
 	if (pozycja+1 > poziom)
 	{
+			//sprawdza czy kolejne pole ma w sobie jakis krysztal i pobiera go
 		if (mapa->obszar[pozycja].czySciana(1)!=1)
 		{
 			int punkty = pobierzKrysztal(pozycja-poziom);
@@ -100,7 +103,7 @@ void UkladSterowania::wGore()
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
 			bohater->dodajRuch();
 			pozycja -= poziom;//ustawia nowa pozycje
-			czyMeta();
+			czyMeta();//sprawdza czy obiekt stanal na mecie, jesli tak to zaczyna nowa plansze
 		}
 	}
 }
@@ -110,6 +113,7 @@ void UkladSterowania::wDol()
 	int poziom = mapa->pobierzPoziom();
 	if (pozycja+poziom+1 <= (poziom*poziom))
 	{
+			//sprawdza czy kolejne pole ma w sobie jakis krysztal i pobiera go
 		if (mapa->obszar[pozycja+poziom].czySciana(1)!=1)
 		{
 			int punkty = pobierzKrysztal(pozycja+poziom);
@@ -122,14 +126,16 @@ void UkladSterowania::wDol()
 			mapa->obszar[pozycja].Wyczysc(dc);//czyszci poprzedni obszar
 			bohater->dodajRuch();
 			pozycja += poziom;//ustawia nowa pozycje
-			czyMeta();
+			czyMeta();//sprawdza czy obiekt stanal na mecie, jesli tak to zaczyna nowa plansze
 
 		}
 	}
 }
 int UkladSterowania::pobierzKrysztal(int pozycja)
 {
+	//sprawdza krysztal znajduje sie na danej pozycji i zwraca jego punkty
 	int ilosc = mapa->obszar[pozycja].ilePkt();
+	//jezeli sa jakies to usuwa krysztal i zwraca jego punkty
 	if (ilosc != 0)
 	{
 		mapa->obszar[pozycja].zwolnij();
@@ -138,9 +144,13 @@ int UkladSterowania::pobierzKrysztal(int pozycja)
 }
 void UkladSterowania::stworzPlansze()
 {
+	//przekazuje wskaznik na plansze do generatora
 	generator.nowaPlansza(mapa);
+	//wykonuje operacje na planszy, powstaje na niej labirynt
 	generator.Generuj();
+	//drukuje plansze w oknie
 	mapa->Buduj(dc);
+	//rozmieszcza na niej krysztaly
 	rozmiescKrysztaly(10);
 }
 void UkladSterowania::czyMeta()
@@ -152,24 +162,33 @@ void UkladSterowania::czyMeta()
 }
 void UkladSterowania::nastepnyPoziom()
 {
+	//zwieksza poziom planszy
 	poziom+=1;
+	//zwieksza poziom gry
+	lvl++;
+	//jezeli poziom planszy nie dzieli sie bez reszty przez jej wielkosc 
+	//to zwiekszam go az tak sie stanie
 	int wielkosc = mapa->pobierzWielkosc();
 	while (wielkosc % poziom !=0)
 	{
 		poziom++;
 	}
+	//kasuje stara plansze i tworze nowa
 	delete mapa;
-	lvl++;
 	mapa = new Plansza(poziom);
 	stworzPlansze();
+	//stawiam pionka na pozycji startu
 	Start();
 	
 }
 void UkladSterowania::rozmiescKrysztaly(int ilosc)
 {
+	//tworze krysztal
 	Krysztal krysztal;
+	//pobieram ilosc kwadratow w planszu i usuwam z nich start i mete
 	int wielkosc = mapa->pobierzPoziom();
 	wielkosc= wielkosc *wielkosc - 2;
+	//tworze tablice ktorej elementy maja wartosc 1 jezeli na danym miejscu(elemencie)znajduje sie krysztal
 	int *wsk;
 	wsk = new int[wielkosc];
 

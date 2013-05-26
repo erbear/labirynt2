@@ -4,7 +4,7 @@ class Plansza
 {
 	int x1,y1;//punkt poczatka lewej gornej krawedzi planszy
 	int x2,y2;//punkt poczatka prawej dolnej krawedzi planszy
-	int wielkosc;//wielkosc w pikselach
+	int wielkosc;//wielkosc w pikselach, liczba calkowita, nie moze byc liczba pierwsza
 	int poziom;// ilosc kwadratow w wierszu
 	int kwadraty; // ilosc wszystkich kwadratow
 	int start;
@@ -26,11 +26,9 @@ public:
 	int pobierzMete();
 
 private:
-	void dodajKrawedzie();
-	void obliczWspolrzedne();
-
-
-
+	void dodajKrawedzie();//dodaje wszytkie krawedzie do wszystkich obszarow
+	void obliczWspolrzedne();//dodaje wspolrzedne do wszystkich obszarow
+	
 	friend class UkladSterowania;
 };
 

@@ -105,6 +105,7 @@ void Obszar::Wyczysc(CDC *dc, int czySciemnic)
 }
 void Obszar::Postaw(CDC *dc, Obiekt *obiekt)
 {
+	//sprawdzam czy cos stoi na tym polu, jezeli tak to zostanie skasowane
 	if (czyZajety() != 1){
 		Wyczysc(dc,0);
 	}
@@ -119,6 +120,7 @@ void Obszar::ustawKolor(int R,int G,int B)
 }
 void Obszar::zajmij(Krysztal &kry)
 {
+	//stawia krysztal na danym obszarze
 	zajety = 1;
 	krysztal = new Krysztal(kry);
 }

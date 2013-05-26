@@ -7,16 +7,15 @@
 #include "Bohater.h"
 class UkladSterowania
 {
-	Plansza *mapa;
-	Bohater *bohater;
+	Plansza *mapa;//wskaznik na plansze
+	Bohater *bohater;//wskaznik na obiekt bohatera
 	CDC *dc;
-	int pozycja;
-	LabiryntGen generator;
+	int pozycja;//zmienna z aktualna pozycja bohatera na planszy
+	LabiryntGen generator;//nowy generator labiryntu
 	int poziom;//poziom planszy
-	int lvl;
+	int lvl;//poziom aktualnej gry
 public:
 	UkladSterowania(CDC*);
-	UkladSterowania(Plansza*,CDC*);
 	~UkladSterowania();
 	
 	//zarzadzanie obiektem
@@ -33,10 +32,13 @@ public:
 	void Start();//ustawia bohatera na polu ustalonym zmienna start
 	void ustawStart(int);//odpowiada za pole startu 1 - poziom*poziom
 	void ustawMete(int);//odpowiada za pole mety 1 - poziom *poziom
-	void czyMeta();
-	void nastepnyPoziom();
-	void rozmiescKrysztaly(int);
-	int pobierzKrysztal(int);
+	
+	void czyMeta();//sprawdza czy obiekt stoi na mecie, jesli tak to zaczyna kolejny poziom
+	void nastepnyPoziom();//zaczyna kolejny poziom
+	void rozmiescKrysztaly(int);//rozmieszcza krysztaly na danej planszy
+	int pobierzKrysztal(int);//sprawdza czy na polu jest krysztal
 
-	int ktoryLvl();
+	int ktoryLvl();//zwraca aktualny poziom gry
+	void zapiszWyniki();
+	void pobierzWyniki();
 };

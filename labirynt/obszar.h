@@ -16,11 +16,11 @@ public:
 	void usunSciane(int);//usuwa sciane czyli ustawia w zmiennej sciana 0, w argumencie znajduje sie sciana lewa(0) lub gorna(1)
 	int czySciana(int);//sprawdza czy jest ustawiona sciana
 	
-	void zajmij(Krysztal &);
-	void zwolnij();
-	int czyZajety();
+	void zajmij(Krysztal &);//zatwierdza krysztal na obszarze
+	void zwolnij();//zwalnia krysztal z obszaru
+	int czyZajety();//sprawdza czy krysztal jest na obszarze
 
-	int ilePkt();
+	int ilePkt();//sprawdza jaka wartosc maja obiekty stojace na obszarze
 
 	void ustawWspolrzedne(int, int, int);//ustawia wspolrzedne obszaru, pierwsze dwa argumenty to wspolrzedne lewego gornego punktu. trzeci argument to dlugosc boku
 	int pobierzWspolrzedna(int);//pobiera dana wspolrzedna

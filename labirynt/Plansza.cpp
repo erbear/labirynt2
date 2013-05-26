@@ -93,19 +93,25 @@ void Plansza::Buduj(CDC* dc)
 
 void  Plansza::ustalPrzejscie(int obszar1,int obszar2)
 {
+	//sprawdza czy obszar 1 jest przed 2
 	if (obszar1<obszar2)
 	{
+		//sprawdza czy jest po lewej
 		if (obszar1+1==obszar2)
-			obszar[obszar2-1].usunSciane(0);
-		else if (obszar1+poziom==obszar2)
+			obszar[obszar2-1].usunSciane(0);//robi przejscie pomiedzy wymi obszarami
+		//czy na gorze
+		else if (obszar1+poziom==obszar2)//robi przejscie pomiedzy wymi obszarami
 			obszar[obszar2-1].usunSciane(1);
 	} else 
+	//lub sprawdza czy obszar 1 jest za 2
 	if (obszar1>obszar2)
 	{
+		//sprawdza czy jest po prawej
 		if (obszar1==obszar2+1)
-			obszar[obszar1-1].usunSciane(0);
+			obszar[obszar1-1].usunSciane(0);//robi przejscie pomiedzy wymi obszarami
+		//czy na dole
 		else if (obszar1==obszar2+poziom)
-			obszar[obszar1-1].usunSciane(1);
+			obszar[obszar1-1].usunSciane(1);//robi przejscie pomiedzy wymi obszarami
 	}
 
 }
